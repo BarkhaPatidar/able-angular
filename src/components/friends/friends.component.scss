@@ -1,0 +1,86 @@
+$body-bg : #E5E5E5;
+$box-shadow : #797878;
+$border-grey : #bec1c2;
+$dark-grey : #5e6061;
+$font-weight-eight : 800;
+$font-weight-five : 500;
+$font-weight-four : 400;
+$font-weight-nine : 900;
+$font-weight-six : 600;
+$green-clr : #51B154;
+$grey-color : #848D95;
+$hover-bg : #eee;
+$line-bottom : #b7bdc2;
+$modal-text : #4e555a;
+$navbar-bg : #1B8AF8;
+$notification-red : #d9534f;
+$offline-user : #FA5551;
+$profession-grey : #747677;
+$red-color : #f8351b;
+$white-clr : #ffffff;
+
+.frnd-request-wrap {
+    .frnd-request-container {
+        border-radius: 5px;
+        margin: 25px 0;
+
+        .friend-tab {
+            background-color: $white-clr;
+            border-radius: 5px;
+            display: inline-block;
+            margin: 0 14px 25px 0;
+            padding: 10px;
+            position: relative;
+            width: 49%;
+
+            &:nth-child(even) {
+                margin-right: 0;
+            }
+
+            span {
+                color: $grey-color;
+                float: right;
+            }
+
+            img {
+                height: 115px;
+                width: 110px;
+            }
+
+            .friend-content {
+                display: inline-block;
+                padding: 10px;
+                position: absolute;
+                top: 15%;
+
+                p {
+                    &:first-child {
+                        font-size: 15px;
+                        font-weight: $font-weight-six;
+                        margin: 0 0 5px 0;
+                    }
+
+                    &:last-child {
+                        color: $grey-color;
+                        font-size: 13px;
+                    }
+                }
+
+                input {
+                    background-color: $navbar-bg;
+                    color: $white-clr;
+                    font-size: 12px;
+                    padding: 4px;
+
+                    &:focus {
+                        outline: none;
+                    }
+                }
+
+                .user-id {
+                    display: none;
+                }
+            }
+        }
+    }
+}

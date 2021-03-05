@@ -1,0 +1,22 @@
+.signup-container {
+    background-color: #f0f2f7;
+    margin: 0 auto;
+    padding: 20px;
+    position: relative;
+    box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.2);
+    width: 35%;
+
+    h3 {
+        color: #1B8AF8;
+        text-align: center;
+    }
+
+    .login-link {
+        font-size: small;
+    }
+
+    .submit-btn {
+        margin-top: 10px;
+        text-align: center;
+    }
+}

@@ -1,0 +1,258 @@
+$body-bg : #E5E5E5;
+$box-shadow : #797878;
+$border-grey : #bec1c2;
+$dark-grey : #5e6061;
+$font-weight-eight : 800;
+$font-weight-five : 500;
+$font-weight-four : 400;
+$font-weight-nine : 900;
+$font-weight-six : 600;
+$green-clr : #51B154;
+$grey-color : #848D95;
+$hover-bg : #eee;
+$line-bottom : #b7bdc2;
+$modal-text : #4e555a;
+$navbar-bg : #1B8AF8;
+$notification-red : #d9534f;
+$offline-user : #FA5551;
+$profession-grey : #747677;
+$red-color : #f8351b;
+$white-clr : #ffffff;
+
+.main-container {
+    .login-wrapper {
+        height: 500px;
+        margin: 0 auto;
+        padding-top: 60px;
+        position: relative;
+        width: 35%;
+
+        .form-container {
+            background-color: $white-clr;
+            border-radius: 4px;
+            box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.2);
+            padding: 50px;
+            margin-top: 100px;
+
+            .form-heading {
+                color: $navbar-bg;
+                font-size: 30px;
+                padding-bottom: 15px;
+                text-align: center;
+            }
+
+            #login-error {
+                display: none;
+            }
+
+            .login-btn-wrap {
+                text-align: center;
+
+                .login-btn {
+                    background-color: $navbar-bg;
+                    color: $white-clr;
+
+                    &:focus {
+                        outline: none;
+                    }
+                }
+            }
+        }
+    }
+
+    .profile-container {
+
+        .profile-breadcrumb {
+            list-style: none;
+            padding: 0;
+
+            li {
+                display: inline-block;
+                font-size: 15px;
+                font-weight: $font-weight-five;
+                padding-right: 5px;
+                vertical-align: middle;
+
+                &:nth-child(even) {
+                    color: $grey-color;
+                    font-size: 9px;
+                    font-weight: $font-weight-nine;
+                }
+
+                a {
+                    color: $navbar-bg;
+                }
+            }
+        }
+
+        .banner {
+            position: relative;
+            .banner-img {
+                width: 100%;
+            }
+
+            .friend-user-data {
+                position: absolute;
+                top: 120px;
+                width: 23%;
+
+                .profile-data-container {
+                    background-color: $white-clr;
+                    border-radius: 4px;
+                    margin-bottom: 30px;
+    
+                    .profile-pic {
+                        width: 100%;
+                        padding: 15px;
+                    }
+    
+                    .profile-text {
+                        text-align: center;
+    
+                        span {
+                            font-size: 19px;
+                        }
+    
+                        h6 {
+                            font-size: 13px;
+                            margin: 0;
+                        }
+                    }
+    
+                    .user-statistics {
+                        text-align: center;
+    
+                        p {
+                            display: inline-block;
+                            margin: 20px 5px;
+                            width: 25%;
+    
+                            span {
+                                color: $navbar-bg;
+                                display: block;
+                                font-size: 20px;
+                            }
+                        }
+                    }
+
+                    .who-to-follow-text {
+                        border-bottom: 1px solid $border-grey;
+                        color: $dark-grey;
+                        font-size: 15px;
+                        font-weight: $font-weight-five;
+                        padding: 20px;
+
+                        a {
+                            background-color: $navbar-bg;
+                            cursor: pointer;
+                            float: right;
+                        }
+                    }
+                    .suggestion-wrap {
+                        position: relative;
+
+                        .follow-suggestions {
+                            list-style: none;
+                            padding: 20px;
+    
+                            li {
+                                padding-bottom: 10px;
+
+                                .profile-status {
+                                    position: relative;
+    
+                                    img {
+                                        border-radius: 50%;
+                                        float: left;
+                                        width: 20%;
+                                    }
+        
+                                    .online {
+                                        top: 35px;
+                                        color: $green-clr;
+                                        font-size: 8px;
+                                        position: absolute;
+                                        right: 80%;
+                                        z-index: 1000;
+                                    }
+
+                                    .offline {
+                                        color: $offline-user;
+                                    }
+                                }
+    
+                                .profile-name {
+                                    display: inline-block;
+                                    padding-left: 15px; 
+    
+                                    p {
+                                        margin: 0;
+                                    }
+    
+                                    .name {
+                                        font-weight: $font-weight-six;
+                                    }
+    
+                                    .profession {
+                                        color: $profession-grey;
+                                        font-size: 13px;
+                                        font-weight: $font-weight-five;
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    .only-frnds-wrap {
+                        padding: 20px 0;
+                        text-align: center;
+
+                        .friend-dp {
+                            border-radius: 50%;
+                            margin: 0 10px 10px 0;
+                            width: 23%;
+                        }
+                    }
+                }
+            }
+        }
+
+        .timeline-container {
+            background-color: $body-bg;
+            float: right;
+            width: 75%;
+
+            .timeline-navbar {
+                background-color: $white-clr;
+                padding: 0;
+                .timeline-bar {
+                    padding: 0;
+                    li {
+                        color: $dark-grey;
+                        cursor: pointer;
+                        font-size: 17px;
+                        font-weight: $font-weight-four;
+                        padding: 20px;
+    
+                        &:focus {
+                            outline: none;
+                        }
+    
+                        &:hover {
+                            background-color: $hover-bg;
+                        }
+                    }
+    
+                    li.active {
+                        border-radius: 0;
+                        border-bottom: 5px solid $navbar-bg;
+    
+                        &:hover {
+                            background-color: $white-clr;;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
