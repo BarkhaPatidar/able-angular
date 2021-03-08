@@ -22,8 +22,17 @@ export class SignupComponent implements OnInit {
 
   constructor( private fb: FormBuilder, private _registrationService: UserService, private _router: Router, private _dataService: DataService) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
+
+    if(this._registrationService.loggedIn()) {
+      this._router.navigate(['/dashboard/timeline'])
+    }
     
+    this.initRegistrationForm();
+    
+  }
+
+  initRegistrationForm(): void {
     this.registrationForm = this.fb.group({
       name: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
@@ -37,8 +46,7 @@ export class SignupComponent implements OnInit {
     }, {validator: passwordValidator});
   }
 
-  onSubmit() {
-    console.log(this.registrationForm.value);
+  onSubmit(): void {
     this._registrationService.register(this.registrationForm.value)
     .subscribe(
       response => {
@@ -59,7 +67,6 @@ export class SignupComponent implements OnInit {
             this._router.navigate(['/signup'])
           }
         }
-        
       }
     );
   }

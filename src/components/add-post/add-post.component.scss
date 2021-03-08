@@ -1,23 +1,4 @@
-$body-bg : #E5E5E5;
-$box-shadow : #797878;
-$border-grey : #bec1c2;
-$dark-grey : #5e6061;
-$font-weight-eight : 800;
-$font-weight-five : 500;
-$font-weight-four : 400;
-$font-weight-nine : 900;
-$font-weight-six : 600;
-$green-clr : #51B154;
-$grey-color : #848D95;
-$hover-bg : #eee;
-$line-bottom : #b7bdc2;
-$modal-text : #4e555a;
-$navbar-bg : #1B8AF8;
-$notification-red : #d9534f;
-$offline-user : #FA5551;
-$profession-grey : #747677;
-$red-color : #f8351b;
-$white-clr : #ffffff;
+@import '../shared/colors.scss';
 
 .modal-title {
     color: $modal-text;
@@ -27,17 +8,25 @@ $white-clr : #ffffff;
 .close {
     color: $navbar-bg;
     opacity: 0.8;
+
+    &:focus:focus-visible {
+        outline: none;
+    }
 }
+
+// .modal-heading-wrap {
+//     text-align: center;
+// }
+
+// .close-btn-wrap {
+//     width: 10%;
+// }
 
 .new-post-form {
     padding: 40px;
 
     label {
         color: $modal-text;
-
-        span {
-            color: $red-color;
-        }
     }
 }
 
@@ -46,6 +35,7 @@ $white-clr : #ffffff;
 
     button {
         background-color: $navbar-bg;
+        border: none;
         color: $white-clr;
 
         &:hover {
@@ -53,9 +43,18 @@ $white-clr : #ffffff;
             outline: none;
         }
         &:focus {
-            outline: none;
+            border: none;
+            box-shadow: none;
         }
+
+        &:active {
+            background-color: $navbar-bg;
+            border: none;
+            color: $white-clr;
+        }
+
         &:active:focus {
+            box-shadow: none;
             outline: none;
         }
     }

@@ -8,13 +8,42 @@ import { UserService } from '../../services/user.service';
 })
 export class FriendsComponent implements OnInit {
 
-  get getFriendData() {
-    return JSON.parse(this._friendsService.getPanelData()!).friends
+  get friends() {
+    return JSON.parse(this._friendsService.getPanelData()!)
   }
 
   constructor(public _friendsService: UserService) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
   
+  }
+
+  checkStatus(status: string): string {
+    var followStatus = "Follow"
+    var unfollowStatus = "Unfollow"
+    var statusValue = "Following"
+    if(status == statusValue) {
+      return unfollowStatus
+    } else {
+      return followStatus
+    }
+  }
+
+  changeFollowStatus(userId: string): void {
+    var followStatus = "Following"
+    var unfollowStatus = "Unfollowing"
+    var panelData = [];
+    panelData = this.friends;
+    for( var i = 0; i < panelData.length; i++) {
+      if(panelData[i].userId == userId) {
+        if(panelData[i].friendStatus == followStatus) {
+          panelData[i].friendStatus = unfollowStatus
+        } else {
+          panelData[i].friendStatus = followStatus
+        }
+      }
+    }
+    localStorage.setItem("panelData", JSON.stringify(panelData));
+    location.reload()
   }
 }

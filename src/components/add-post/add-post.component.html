@@ -1,21 +1,29 @@
 <div class="modal-header">
-    <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss()">
-      <span aria-hidden="true">&times;</span>
-    </button>
-    <h1 class="modal-title" id="modal-title">New Post</h1>
+  <h3 class="modal-title" id="modal-title">New Post</h3>
+  
+  <button type="button" class="close" aria-label="Close" (click)="dismiss()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+    
 </div>
 <div class="modal-body">
     <form [formGroup]="addPostForm" (ngSubmit)="savePost()" class="new-post-form">
       <div class="form-group">
-        <label>Image URL<span>*</span></label>
-        <input type="text" placeholder="Image URL" name="imageURL" id="imageURL" class="form-control">
+        <label>Image URL<span class="text-danger">*</span></label>
+        <input type="text" formControlName="imageURL" placeholder="Image URL" name="imageURL" id="imageURL" class="form-control">
+        <div *ngIf="addPostForm.get('imageURL')?.invalid && addPostForm.get('imageURL')?.touched">
+          <small *ngIf="addPostForm.get('imageURL')?.errors?.required" class="text-danger">Please enter image URL.</small>
+        </div>
       </div>
       <div class="form-group">
-        <label>Caption<span>*</span></label>
-        <textarea class="form-control" placeholder="Write something....!" name="caption" id="caption"></textarea>
+        <label>Caption<span class="text-danger">*</span></label>
+        <textarea class="form-control" formControlName="caption" placeholder="Write something....!" name="caption" id="caption"></textarea>
+        <div *ngIf="addPostForm.get('caption')?.invalid && addPostForm.get('caption')?.touched">
+          <small *ngIf="addPostForm.get('caption')?.errors?.required" class="text-danger">Please enter caption.</small>
+        </div>
       </div>
       <div class="save-post">
-      <button type="button" class="btn btn-outline-dark">Add Post</button>
+      <button type="submit" [disabled]="!addPostForm.valid" class="btn btn-outline-dark">Add Post</button>
       </div>
     </form>
 </div>

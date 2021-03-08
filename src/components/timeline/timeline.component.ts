@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../services/user.service';
-import { NgbModal, ModalDismissReasons, NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import { AddPostModal } from '../add-post/add-post.component';
+import * as moment from 'moment';
 
 @Component({
   selector: 'timeline-component',
@@ -10,38 +11,48 @@ import { AddPostModal } from '../add-post/add-post.component';
 })
 export class TimelineComponent implements OnInit {
 
-  get postData() {
+  get posts() {
     return JSON.parse(this._timelineService.getPostData()!)
   }
 
   constructor(public _timelineService: UserService, private modalService: NgbModal) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     
   }
 
   closeResult = '';
 
-  open(content: any) {
+  open(content: any): void {
     this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
       // this.closeResult = `Closed with: ${result}`;
     });
   }
 
-  // private getDismissReason(reason: any): string {
-  //   if (reason === ModalDismissReasons.ESC) {
-  //     return 'by pressing ESC';
-  //   } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
-  //     return 'by clicking on a backdrop';
-  //   } else {
-  //     return `with: ${reason}`;
-  //   }
-  // }
-
-  openAddPostModal() {
-    const modalRef = this.modalService.open(AddPostModal);
-    // modalRef.componentInstance.name = 'Barkha';
+  openAddPostModal(): void {
+    this.modalService.open(AddPostModal);
   }
 
-  
+  convertTime(dateText: Date): string {
+    return moment(dateText).fromNow();
+  }
+
+  likePost(postId: number): void {
+    var allPosts = [];
+    allPosts = this.posts;
+    for(var i = 0; i < allPosts.length; i++) {
+      if(allPosts[i].postId == postId) {
+        var liked = "liked";
+        var likeStatus = allPosts[i].liked;
+        if(likeStatus == liked) {
+          allPosts[i].liked = "";
+          allPosts[i].likes = allPosts[i].likes - 1;
+        } else {
+          allPosts[i].liked = liked;
+          allPosts[i].likes = allPosts[i].likes + 1;
+        }
+      }
+    }
+    localStorage.setItem("timelineData", JSON.stringify(allPosts));
+  } 
 }

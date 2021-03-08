@@ -8,13 +8,13 @@ import { UserService } from '../../services/user.service';
 })
 export class PhotosComponent implements OnInit {
 
-  get postData() {
+  get posts() {
     return JSON.parse(this._photosService.getPostData()!)
   }
   
   constructor(public _photosService: UserService) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
    
   }
 }

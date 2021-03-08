@@ -11,16 +11,16 @@
         <div id="banner" class="banner">
             <img class="banner-img" src="assets/img/hero-img.jpg">
             <div class="friend-user-data">
-                <div class="profile-data-container clearfix" id="user-profile-tab">
+                <div class="profile-data-container clearfix">
                     <img class="profile-pic" src="assets/img/profile-girl.png">
                     <div class="profile-text">
-                        <span>{{getUser?.name}}</span>
-                        <h6>{{getUser?.profession}}</h6>
+                        <span>{{user.name}}</span>
+                        <h6>{{user.profession}}</h6>
                     </div>
                     
                     <div class="user-statistics">
                         <p><span>{{followingsCount}}</span> Followings</p>
-                        <p><span>{{getUser?.followers}}</span> Followers</p>
+                        <p><span>{{user.followers}}</span> Followers</p>
                         <p><span>{{postCount}}</span> Activities</p>
                     </div> 
                 </div>
@@ -28,12 +28,12 @@
                     <div class="profile-data-container clearfix">
                         <div class="who-to-follow-text">
                             <span>WHO TO FOLLOW</span>
-                            <a *ngIf="isSee5More" (click)="see5More()" class="badge badge-primary">See 5 more</a>
-                            <a *ngIf="!isSee5More" (click)="see5MoreLess()" class="badge badge-primary">See less</a>
+                            <a *ngIf="isSeeMoreSuggestions" (click)="seeMoreSuggestions()" class="badge badge-primary">See 5 more</a>
+                            <a *ngIf="!isSeeMoreSuggestions" (click)="seeLessSuggestions()" class="badge badge-primary">See less</a>
                         </div>
                         <div class="suggestion-wrap">
-                            <ul class="follow-suggestions" id="follow-suggestions">
-                                <li *ngFor="let suggetion of whoToFollow" class="clearfix">
+                            <ul class="follow-suggestions" [class.add-scroll]="showSuggetionScroll">
+                                <li *ngFor="let suggetion of suggetions" class="clearfix">
                                     <div class="profile-status">
                                         <img src="assets/img/{{suggetion.profile}}">
                                         <span class="online {{suggetion.status}}"><i class="fa fa-circle" aria-hidden="true"></i></span>
@@ -50,13 +50,13 @@
                     <div class="profile-data-container clearfix">
                         <div class="who-to-follow-text">
                             <span>FRIENDS</span>
-                            <a *ngIf="isSee10More" (click)="see10More()" class="badge badge-primary">See 10 more</a>
-                            <a *ngIf="!isSee10More" (click)="see10MoreLess()" class="badge badge-primary">See less</a>
+                            <a *ngIf="isSeeMoreFriends" (click)="seeMoreFriends()" class="badge badge-primary">See 10 more</a>
+                            <a *ngIf="!isSeeMoreFriends" (click)="seeLessFriends()" class="badge badge-primary">See less</a>
                         </div>
-                        <div class="only-frnds-wrap" id="only-frnds-wrap">
+                        <div class="only-frnds-wrap" [class.add-scroll]="showFriendsScroll">
                            
-                            <img *ngFor="let friendProfile of friends" class="friend-dp" data-toggle="tooltip" data-placement="top" title="{{friendProfile.name}}" src="assets/img/{{friendProfile.profile}}">
-                          
+                            <img *ngFor="let friendProfile of friends" class="friend-dp" ngbPopover="{{friendProfile.name}}" popoverClass="friend-dp-popover" triggers="mouseenter:mouseleave" src="assets/img/{{friendProfile.profile}}">
+                            
                         </div>
                     </div>
                 </div>    

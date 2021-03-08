@@ -1,13 +1,16 @@
+@import '../shared/colors.scss';
+
 .signup-container {
-    background-color: #f0f2f7;
+    background-color: $white-clr;
+    box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.2);
     margin: 0 auto;
+    margin-top: 90px;
     padding: 20px;
     position: relative;
-    box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.2);
-    width: 35%;
+    width: 45%;
 
     h3 {
-        color: #1B8AF8;
+        color: $navbar-bg;
         text-align: center;
     }
 
@@ -18,5 +21,11 @@
     .submit-btn {
         margin-top: 10px;
         text-align: center;
+    }
+}
+
+@media only screen and (max-width: 767px) { 
+    .signup-container {
+        width: 100%;
     }
 }

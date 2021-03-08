@@ -10,15 +10,15 @@ import { UserService } from '../../services/user.service';
 })
 export class DashboardComponent implements OnInit {
 
-  get getUser() {
+  get user() {
     return JSON.parse(this._dashboardService.getUserData()!)
   }
 
-  get postData() {
+  get posts() {
     return JSON.parse(this._dashboardService.getPostData()!)
   }
 
-  get getFriendData() {
+  get allFriends() {
     return JSON.parse(this._dashboardService.getPanelData()!)
   }
 
@@ -27,27 +27,29 @@ export class DashboardComponent implements OnInit {
   followingsCount = 0;
   followings: any = [];
   unfollowings: any = [];
-  whoToFollow: any = [];
+  suggetions: any = [];
   friends: any = [];
-  isSee5More = true;
-  isSee10More = true;
-  isTimeline = false;
-  isAbout = false;
-  isPhotos = false;
-  isFriends = false;
+  isSeeMoreSuggestions: boolean = true;
+  isSeeMoreFriends: boolean = true;
+  isTimeline: boolean = false;
+  isAbout: boolean = false;
+  isPhotos: boolean = false;
+  isFriends: boolean = false;
+  showSuggetionScroll: boolean = false;
+  showFriendsScroll: boolean = false;
 
   constructor(public _dashboardService: UserService, private _router: Router, private route: ActivatedRoute) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.getUrlSegment()
     this._dashboardService.dashboard()
     .subscribe(
       res => {
-        this.allPosts = this.postData
-        this.postCount = this.postData.length;
-        for(var i = 0; i < this.getFriendData.friends.length; i++) {
-          var followUsers = this.getFriendData.friends[i];
-          if(this.getFriendData.friends[i].friendStatus == "Following") {
+        this.allPosts = this.posts
+        this.postCount = this.posts.length;
+        for(var i = 0; i < this.allFriends.length; i++) {
+          var followUsers = this.allFriends[i];
+          if(this.allFriends[i].friendStatus == "Following") {
             (this.followings).push(followUsers)
             if(this.friends.length < 9) {
               (this.friends).push(followUsers)
@@ -55,8 +57,8 @@ export class DashboardComponent implements OnInit {
           } else {
             this.followingsCount += 1;
             (this.unfollowings).push(followUsers)
-            if(this.whoToFollow.length < 4) {
-              (this.whoToFollow).push(followUsers)
+            if(this.suggetions.length < 4) {
+              (this.suggetions).push(followUsers)
             }
           }
         }
@@ -75,7 +77,7 @@ export class DashboardComponent implements OnInit {
     
   }
 
-  checkActiveLink(value: any) {
+  checkActiveLink(value: any): void {
     switch(value) {
       case "timeline" :
         this.isTimeline = true
@@ -93,50 +95,54 @@ export class DashboardComponent implements OnInit {
     
   }
 
-  getUrlSegment() {
+  getUrlSegment(): void {
     var urlSegment = this.route.snapshot.children[0].routeConfig?.path;
     this.checkActiveLink(urlSegment)
   }
 
-  see5More() {
-    var currentWhoToFollow = this.whoToFollow.length;
-    for( var i = currentWhoToFollow; i < currentWhoToFollow + 5; i++)  {
-      if(this.whoToFollow.length < this.unfollowings.length) {
-        (this.whoToFollow).push(this.unfollowings[i])
+  seeMoreSuggestions(): void {
+    this.showSuggetionScroll = true; 
+    var currentSuggetions = this.suggetions.length;
+    for( var i = currentSuggetions; i < currentSuggetions + 5; i++)  {
+      if(this.suggetions.length < this.unfollowings.length) {
+        (this.suggetions).push(this.unfollowings[i])
       } else {
-        this.isSee5More = false;
+        this.isSeeMoreSuggestions = false;
       }
     }
   }
 
-  see5MoreLess() {
-    this.whoToFollow = [];
+  seeLessSuggestions(): void {
+    this.showSuggetionScroll = false; 
+    this.suggetions = [];
     for( var i = 0; i < 4; i++)  {
-      (this.whoToFollow).push(this.unfollowings[i])
-      this.isSee5More = true;
+      (this.suggetions).push(this.unfollowings[i])
+      this.isSeeMoreSuggestions = true;
     }
   }
 
-  see10More() {
+  seeMoreFriends(): void {
+    this.showFriendsScroll = true;
     var currentFriends = this.friends.length;
     for( var i = currentFriends; i < currentFriends + 10; i++)  {
       if(this.friends.length < this.followings.length) {
         (this.friends).push(this.followings[i])
       } else {
-        this.isSee10More = false;
+        this.isSeeMoreFriends = false;
       }
     }
   }
 
-  see10MoreLess() {
+  seeLessFriends(): void {
+    this.showFriendsScroll = false;
     this.friends = [];
     for( var i = 0; i < 9; i++)  {
       (this.friends).push(this.followings[i])
-      this.isSee10More = true;
+      this.isSeeMoreFriends = true;
     }
   }
 
-  isActive(query: string) {
+  isActive(query: string): void {
     this.isTimeline = this.isAbout = this.isPhotos = this.isFriends = false;
     this.checkActiveLink(query)
     this._router.navigate([`/dashboard/${query}`])

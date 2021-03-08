@@ -12,6 +12,7 @@ import { AboutComponent } from '../components/about/about.component';
 import { FriendsComponent } from '../components/friends/friends.component';
 import { PhotosComponent } from '../components/photos/photos.component';
 import { TimelineComponent } from '../components/timeline/timeline.component';
+import { AddPostModal } from '../components/add-post/add-post.component';
 
 import { UserInterceptor } from '../interceptor/user.interceptor';
 
@@ -26,7 +27,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     AboutComponent,
     FriendsComponent,
     PhotosComponent,
-    TimelineComponent
+    TimelineComponent,
+    AddPostModal
   ],
   imports: [
     BrowserModule,

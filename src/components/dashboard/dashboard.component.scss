@@ -1,64 +1,7 @@
-$body-bg : #E5E5E5;
-$box-shadow : #797878;
-$border-grey : #bec1c2;
-$dark-grey : #5e6061;
-$font-weight-eight : 800;
-$font-weight-five : 500;
-$font-weight-four : 400;
-$font-weight-nine : 900;
-$font-weight-six : 600;
-$green-clr : #51B154;
-$grey-color : #848D95;
-$hover-bg : #eee;
-$line-bottom : #b7bdc2;
-$modal-text : #4e555a;
-$navbar-bg : #1B8AF8;
-$notification-red : #d9534f;
-$offline-user : #FA5551;
-$profession-grey : #747677;
-$red-color : #f8351b;
-$white-clr : #ffffff;
+@import '../shared/colors.scss';
 
 .main-container {
-    .login-wrapper {
-        height: 500px;
-        margin: 0 auto;
-        padding-top: 60px;
-        position: relative;
-        width: 35%;
-
-        .form-container {
-            background-color: $white-clr;
-            border-radius: 4px;
-            box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.2);
-            padding: 50px;
-            margin-top: 100px;
-
-            .form-heading {
-                color: $navbar-bg;
-                font-size: 30px;
-                padding-bottom: 15px;
-                text-align: center;
-            }
-
-            #login-error {
-                display: none;
-            }
-
-            .login-btn-wrap {
-                text-align: center;
-
-                .login-btn {
-                    background-color: $navbar-bg;
-                    color: $white-clr;
-
-                    &:focus {
-                        outline: none;
-                    }
-                }
-            }
-        }
-    }
+    padding-top: 50px;
 
     .profile-container {
 
@@ -124,6 +67,7 @@ $white-clr : #ffffff;
     
                         p {
                             display: inline-block;
+                            font-size: 15px;
                             margin: 20px 5px;
                             width: 25%;
     
@@ -250,6 +194,50 @@ $white-clr : #ffffff;
                         &:hover {
                             background-color: $white-clr;;
                         }
+                    }
+                }
+            }
+        }
+    }
+}
+
+.add-scroll {
+    max-height: 300px;
+    overflow-y: scroll;
+}
+
+@media only screen and (max-width: 1024px) {
+    .main-container {
+        .profile-container {
+            .banner {
+                .friend-user-data {
+                    width: 35%;
+                } 
+            }
+            .timeline-container {
+                width: 60%;
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 767px) {
+    .main-container {
+        .profile-container {
+            .banner {
+                .friend-user-data {
+                    position: static;
+                    width: 100%;
+                } 
+            }
+            .timeline-container {
+                width: 100%;
+                .timeline-navbar {
+                    background-color: inherit;
+                    float: left;
+                    .timeline-bar {
+                        background-color: $white-clr;
+                        margin-bottom: 10px;
                     }
                 }
             }

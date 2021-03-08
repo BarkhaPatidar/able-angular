@@ -1,6 +1,6 @@
 [
     {
-        "postId" : "1",
+        "postId" : 1,
         "user" : "Hermione Granger",
         "userProfile" : "profile-girl.png",
         "pic" : "https://images.pexels.com/photos/36717/amazing-animal-beautiful-beautifull.jpg?auto=compress&cs=tinysrgb&dpr=1&w=500",
@@ -12,7 +12,7 @@
         "liked" : ""
     },
     {
-        "postId" : "2",
+        "postId" : 2,
         "user" : "Harry Potter",
         "userProfile" : "profile.jpg",
         "pic" : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQRTOka7yiD9kwnZGsEZR6-w40z2R9obqb8-g&usqp=CAU",
@@ -24,7 +24,7 @@
         "liked" : ""
     },
     {
-        "postId" : "3",
+        "postId" : 3,
         "user" : "Jessica Jones",
         "userProfile" : "avatar-1.png",
         "pic" : "https://images.unsplash.com/photo-1541423408854-5df732b6f6d1?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1000&q=80",

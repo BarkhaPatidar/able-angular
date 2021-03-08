@@ -1,62 +1,78 @@
 <div class="signup-container">
   <h3>SignUp</h3>
   <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
-    <div class="form-group">
-      <label>Name</label>
-      <input formControlName="name" type="text" class="form-control">
-      <div *ngIf="registrationForm.get('name')?.invalid && registrationForm.get('name')?.touched">
-        <small *ngIf="registrationForm.get('name')?.errors?.required" class="text-danger">Please enter name.</small>
+
+    <div class="row">
+      <div class="col">
+        <div class="form-group">
+          <label>Name<span class="text-danger">*</span></label>
+          <input formControlName="name" type="text" class="form-control">
+          <div *ngIf="registrationForm.get('name')?.invalid && registrationForm.get('name')?.touched">
+            <small *ngIf="registrationForm.get('name')?.errors?.required" class="text-danger">Please enter name.</small>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="form-group">
+          <label>Email<span class="text-danger">*</span></label>
+          <input formControlName="email" type="text" class="form-control">
+          <div *ngIf="registrationForm.get('email')?.invalid && registrationForm.get('email')?.touched">
+            <small *ngIf="registrationForm.get('email')?.errors?.required" class="text-danger">Please enter email.</small>
+            <small *ngIf="registrationForm.get('email')?.errors?.email" class="text-danger">Please enter valid email.</small>
+          </div>
+        </div>
       </div>
     </div>
 
-    <div class="form-group">
-      <label>Email</label>
-      <input formControlName="email" type="text" class="form-control">
-      <div *ngIf="registrationForm.get('email')?.invalid && registrationForm.get('email')?.touched">
-        <small *ngIf="registrationForm.get('email')?.errors?.required" class="text-danger">Please enter email.</small>
-        <small *ngIf="registrationForm.get('email')?.errors?.email" class="text-danger">Please enter valid email.</small>
+    <div class="row">
+      <div class="col">
+        <div class="form-group">
+          <label>Password<span class="text-danger">*</span></label>
+          <input formControlName="password" type="password" class="form-control">
+          <div *ngIf="registrationForm.get('password')?.invalid && registrationForm.get('password')?.touched">
+            <small *ngIf="registrationForm.get('password')?.errors?.required" class="text-danger">Please enter password.</small>
+            <small *ngIf="registrationForm.get('password')?.errors?.minlength" class="text-danger">Password must be at least 6 characters.</small>
+          </div>
+        </div>
       </div>
-    </div>
-  
-    <div class="form-group">
-      <label>Password</label>
-      <input formControlName="password" type="password" class="form-control">
-      <div *ngIf="registrationForm.get('password')?.invalid && registrationForm.get('password')?.touched">
-        <small *ngIf="registrationForm.get('password')?.errors?.required" class="text-danger">Please enter password.</small>
-        <small *ngIf="registrationForm.get('password')?.errors?.minlength" class="text-danger">Password must be at least 6 characters.</small>
+      <div class="col">
+        <div class="form-group">
+          <label>Confirm Password<span class="text-danger">*</span></label>
+          <input formControlName="confirmPassword" type="password" class="form-control">
+          <div *ngIf="registrationForm.get('confirmPassword')?.invalid && registrationForm.get('confirmPassword')?.touched">
+            <small *ngIf="registrationForm.get('confirmPassword')?.errors?.required" class="text-danger">Please enter confirm password.</small>
+            <small class="text-danger" *ngIf="registrationForm.errors?.misMatch">Passwords do not match.</small>
+          </div>
+        </div>
       </div>
-    </div>
-  
-    <div class="form-group">
-      <label>Confirm Password</label>
-      <input formControlName="confirmPassword" type="password" class="form-control">
-      <div *ngIf="registrationForm.get('confirmPassword')?.invalid && registrationForm.get('confirmPassword')?.touched">
-        <small *ngIf="registrationForm.get('confirmPassword')?.errors?.required" class="text-danger">Please enter confirm password.</small>
-        <small class="text-danger" *ngIf="registrationForm.errors?.misMatch">Passwords do not match.</small>
-      </div>
-      
     </div>
   
     <div formGroupName="address">
-      <div class="form-group">
-        <label>City</label>
-        <input type="text" class="form-control" formControlName="city">
-        <div *ngIf="getAddress?.get('city')?.invalid && getAddress?.get('city')?.touched">
-          <small *ngIf="getAddress?.get('city')?.errors?.required" class="text-danger">Please enter city.</small>
+      <div class="row">
+        <div class="col">
+          <div class="form-group">
+            <label>City<span class="text-danger">*</span></label>
+            <input type="text" class="form-control" formControlName="city">
+            <div *ngIf="getAddress?.get('city')?.invalid && getAddress?.get('city')?.touched">
+              <small *ngIf="getAddress?.get('city')?.errors?.required" class="text-danger">Please enter city.</small>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="form-group">
+            <label>Postal Code<span class="text-danger">*</span></label>
+            <input type="text" class="form-control" formControlName="postalCode">
+            <div *ngIf="getAddress?.get('postalCode')?.invalid && getAddress?.get('postalCode')?.touched">
+              <small *ngIf="getAddress?.get('postalCode')?.errors?.required" class="text-danger">Please enter postal code.</small>
+            </div>
+          </div>
         </div>
       </div>
       <div class="form-group">
-        <label>State</label>
+        <label>State<span class="text-danger">*</span></label>
         <input type="text" class="form-control" formControlName="state">
         <div *ngIf="getAddress?.get('state')?.invalid && getAddress?.get('state')?.touched">
           <small *ngIf="getAddress?.get('state')?.errors?.required" class="text-danger">Please enter state.</small>
-        </div>
-      </div>
-      <div class="form-group">
-        <label>Postal Code</label>
-        <input type="text" class="form-control" formControlName="postalCode">
-        <div *ngIf="getAddress?.get('postalCode')?.invalid && getAddress?.get('postalCode')?.touched">
-          <small *ngIf="getAddress?.get('postalCode')?.errors?.required" class="text-danger">Please enter postal code.</small>
         </div>
       </div>
     </div>

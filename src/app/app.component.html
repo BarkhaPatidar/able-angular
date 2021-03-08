@@ -1,25 +1,25 @@
-<nav class="navbar navbar-expand-lg navbar-light menu-bar">
+<nav class="navbar fixed-top navbar-expand-lg navbar-light menu-bar">
     <div class="container">
         <a class="navbar-brand navbar-title" href="#">Able</a>
-    <button *ngIf="_userService.loggedIn()" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#burgerMenu" aria-controls="burgerMenu" aria-expanded="false" aria-label="Toggle navigation">
+    <button *ngIf="loggedIn" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#burgerMenu" aria-controls="burgerMenu" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
   
-    <div *ngIf="_userService.loggedIn()" class="collapse navbar-collapse " id="burgerMenu">
+    <div *ngIf="loggedIn" class="collapse navbar-collapse " id="burgerMenu">
         <div class="ml-auto">
             <a href="" class="navbar-menu-items "><i class="fa fa-search" aria-hidden="true"></i></a>
             <a href="" class="navbar-menu-items "><i class="fa fa-bell-o  icon-badge" aria-hidden="true"><span class="badge badge-danger">1</span></i></a>
             <a href="" class="navbar-menu-items "><i class="fa fa-comments-o icon-badge" aria-hidden="true"><span class="badge badge-pill badge-danger">2</span></i></a>
             <a href="" class="navbar-menu-items "><i class="fa fa-arrows-alt" aria-hidden="true"></i></a>
             <div class="navbar-menu-items menu-items-img">
-                <img src="https://barkhapatidar.github.io/able/assets/img/profile-girl.png" alt="profile">
+                <img src="assets/img/{{user.profile}}" alt="profile">
             </div>
             <div role="presentation" class="dropdown navbar-menu-dropdown d-inline">
                 <a class="dropdown-toggle menu-dropdown" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-                    {{username}} <span class="glyphicon glyphicon-chevron-down"></span>
+                    {{user.name}} <span class="glyphicon glyphicon-chevron-down"></span>
                 </a>
                 <ul class="dropdown-menu">
-                    <li><a class="logout-link" (click)="_userService.logout()" id="logout-btn">Logout</a></li>
+                    <li><a class="logout-link" (click)="logout()" id="logout-btn">Logout</a></li>
                 </ul>
             </div>
         </div>

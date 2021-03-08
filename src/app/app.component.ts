@@ -7,13 +7,23 @@ import { UserService } from '../services/user.service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
+
+  get loggedIn() {
+    return this._userService.loggedIn()
+  }
+
+  logout() {
+    return this._userService.logout()
+  }
+
+  get user() {
+    return JSON.parse(this._userService.getUserData()!)
+  }
   
   constructor(public _userService: UserService) {}
-  username = "";
 
   ngOnInit() {
-    var userData = this._userService.getUserData()
-    this.username = (JSON.parse(userData!)).name
+
   }
   
 
