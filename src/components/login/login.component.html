@@ -2,7 +2,7 @@
     <h3>Login</h3>
 
     <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-      <ngb-alert #successAlert *ngIf="errMsg" type="danger" (closed)="errMsg = ''">{{ errMsg }}</ngb-alert>
+      <ngb-alert #errorAlert *ngIf="errMsg" type="danger" (closed)="errMsg = ''">{{ errMsg }}</ngb-alert>
         <div class="form-group">
           <label>Email<span class="text-danger">*</span></label>
           <input formControlName="email" type="text" class="form-control">

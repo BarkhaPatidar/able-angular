@@ -3,6 +3,8 @@ import { UserService } from '../../services/user.service';
 import { NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import { AddPostModal } from '../add-post/add-post.component';
 import * as moment from 'moment';
+import { HttpErrorResponse } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'timeline-component',
@@ -11,14 +13,37 @@ import * as moment from 'moment';
 })
 export class TimelineComponent implements OnInit {
 
-  get posts() {
-    return JSON.parse(this._timelineService.getPostData()!)
-  }
+  posts?: any;
 
-  constructor(public _timelineService: UserService, private modalService: NgbModal) {}
+  constructor(public _timelineService: UserService, private modalService: NgbModal, private _router: Router) {}
 
   ngOnInit(): void {
-    
+    this.postObservable();
+  }
+
+  postObservable() {
+    this._timelineService.getPostData().subscribe(postData => {
+      this._timelineService.postInfo(postData)
+      this.getPosts();
+    })
+  }
+
+  getPosts() {
+    this._timelineService.postData$
+    .subscribe(
+      res => {
+        this.posts = res.posts.reverse()
+      }, 
+      err => {
+        if(err instanceof HttpErrorResponse) {
+          if(err.status === 401) {
+            this._router.navigate(['/login'])
+          } else if(err.status === 403) {
+            this._router.navigate(['/login'])
+          }
+        }
+      }
+    ) 
   }
 
   closeResult = '';
@@ -38,21 +63,21 @@ export class TimelineComponent implements OnInit {
   }
 
   likePost(postId: number): void {
-    var allPosts = [];
-    allPosts = this.posts;
-    for(var i = 0; i < allPosts.length; i++) {
-      if(allPosts[i].postId == postId) {
-        var liked = "liked";
-        var likeStatus = allPosts[i].liked;
-        if(likeStatus == liked) {
-          allPosts[i].liked = "";
-          allPosts[i].likes = allPosts[i].likes - 1;
-        } else {
-          allPosts[i].liked = liked;
-          allPosts[i].likes = allPosts[i].likes + 1;
+    this._timelineService.likePost({postId})
+    .subscribe(
+      response => {
+        // location.reload();
+        this._timelineService.postInfo(response)
+      },
+      error => {
+        if(error instanceof HttpErrorResponse) {
+          if(error.status === 401) {
+            this._router.navigate(['/login'])
+          } else if(error.status === 403) {
+            this._router.navigate(['/login'])
+          }
         }
       }
-    }
-    localStorage.setItem("timelineData", JSON.stringify(allPosts));
+    );
   } 
 }

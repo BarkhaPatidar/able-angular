@@ -14,13 +14,13 @@
                 <div class="profile-data-container clearfix">
                     <img class="profile-pic" src="assets/img/profile-girl.png">
                     <div class="profile-text">
-                        <span>{{user.name}}</span>
-                        <h6>{{user.profession}}</h6>
+                        <span>{{user?.name}}</span>
+                        <h6>{{user?.profession}}</h6>
                     </div>
                     
                     <div class="user-statistics">
                         <p><span>{{followingsCount}}</span> Followings</p>
-                        <p><span>{{user.followers}}</span> Followers</p>
+                        <p><span>{{user?.followers}}</span> Followers</p>
                         <p><span>{{postCount}}</span> Activities</p>
                     </div> 
                 </div>
@@ -64,10 +64,10 @@
         </div>
         <div class="timeline-container clearfix">
             <nav class="navbar navbar-expand-lg navbar-light timeline-navbar">
-                <button class="navbar-toggler " data-toggle="collapse" data-target="#timeline-menu-bar" aria-controls="timeline-menu-bar" aria-expanded="false" aria-label="Toggle navigation">
+                <button class="navbar-toggler " (click)="isDashMenuCollapsed = !isDashMenuCollapsed">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <ul class="collapse navbar-collapse nav nav-pills nav-justified timeline-bar" id="timeline-menu-bar">
+                <ul [ngbCollapse]="isDashMenuCollapsed" class="collapse navbar-collapse nav nav-pills nav-justified timeline-bar" id="timeline-menu-bar">
                     <li class="nav-item" (click)="isActive('timeline')" [class.active]="isTimeline"  >Timeline</li>
                     <li class="nav-item" (click)="isActive('about')" [class.active]="isAbout">About</li>
                     <li class="nav-item" (click)="isActive('photos')" [class.active]="isPhotos">Photos</li>

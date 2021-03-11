@@ -46,32 +46,27 @@ body {
     }
 
     .navbar-menu-dropdown {
-        font-size: 16px;
-        margin-left: 4px;
-        padding-top: 14px;
 
-        a.menu-dropdown {
+        button {
+            background-color: inherit;
+            border: none;
+            color: $white-clr;
 
-            &:hover, &:focus {
-                text-decoration: none;
-            }
-
-            span {
-                font-size: 13px;
+            &:focus {
+                box-shadow: none;
             }
         }
 
-        ul {
-            left: -35px;
-            li {
-                text-align: center;
+        .logout-link {
+            color: $navbar-bg;
+            cursor: pointer;
+            font-weight: $font-weight-six;
+            text-decoration: none;  
 
-                .logout-link {
-                    color: $navbar-bg;
-                    cursor: pointer;
-                    font-weight: $font-weight-six;
-                    text-decoration: none;
-                }
+            &:focus, &:hover, &:active {
+                background-color: $white-clr;
+                border: none;
+                outline: none;
             }
         }
     }  

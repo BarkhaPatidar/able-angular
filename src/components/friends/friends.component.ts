@@ -1,4 +1,6 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { UserService } from '../../services/user.service';
 
 @Component({
@@ -8,14 +10,37 @@ import { UserService } from '../../services/user.service';
 })
 export class FriendsComponent implements OnInit {
 
-  get friends() {
-    return JSON.parse(this._friendsService.getPanelData()!)
-  }
+  friends?: any;
 
-  constructor(public _friendsService: UserService) {}
+  constructor(public _friendsService: UserService, private _router: Router) {}
 
   ngOnInit(): void {
-  
+    this.friendObservable();
+  }
+
+  friendObservable() {
+    this._friendsService.getPanelData().subscribe(friendsData => {
+      this._friendsService.friendInfo(friendsData)
+      this.getAllFriends();
+    })
+  }
+
+  getAllFriends() {
+    this._friendsService.friendData$
+    .subscribe(
+      res => {
+        this.friends = res.friends
+      }, 
+      err => {
+        if(err instanceof HttpErrorResponse) {
+          if(err.status === 401) {
+            this._router.navigate(['/login'])
+          } else if(err.status === 403) {
+            this._router.navigate(['/login'])
+          }
+        }
+      }
+    ) 
   }
 
   checkStatus(status: string): string {
@@ -29,21 +54,23 @@ export class FriendsComponent implements OnInit {
     }
   }
 
-  changeFollowStatus(userId: string): void {
-    var followStatus = "Following"
-    var unfollowStatus = "Unfollowing"
-    var panelData = [];
-    panelData = this.friends;
-    for( var i = 0; i < panelData.length; i++) {
-      if(panelData[i].userId == userId) {
-        if(panelData[i].friendStatus == followStatus) {
-          panelData[i].friendStatus = unfollowStatus
-        } else {
-          panelData[i].friendStatus = followStatus
+  changeFollowStatus(userId: number): void {
+    this._friendsService.followUser({userId})
+    .subscribe(
+      res => {
+        // this.friends = res.friends
+        // location.reload();
+        this._friendsService.friendInfo(res)
+      }, 
+      err => {
+        if(err instanceof HttpErrorResponse) {
+          if(err.status === 401) {
+            this._router.navigate(['/login'])
+          } else if(err.status === 403) {
+            this._router.navigate(['/login'])
+          }
         }
       }
-    }
-    localStorage.setItem("panelData", JSON.stringify(panelData));
-    location.reload()
+    )
   }
 }

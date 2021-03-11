@@ -1,4 +1,6 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { UserService } from '../../services/user.service';
 
 @Component({
@@ -8,13 +10,36 @@ import { UserService } from '../../services/user.service';
 })
 export class PhotosComponent implements OnInit {
 
-  get posts() {
-    return JSON.parse(this._photosService.getPostData()!)
-  }
+  posts?: any;
   
-  constructor(public _photosService: UserService) {}
+  constructor(public _photosService: UserService, private _router: Router) {}
 
   ngOnInit(): void {
-   
+   this.postObservable();
+  }
+
+  postObservable() {
+    this._photosService.getPostData().subscribe(postData => {
+      this._photosService.postInfo(postData)
+      this.getPosts();
+    })
+  }
+
+  getPosts() {
+    this._photosService.postData$
+    .subscribe(
+      res => {
+        this.posts = res.posts
+      }, 
+      err => {
+        if(err instanceof HttpErrorResponse) {
+          if(err.status === 401) {
+            this._router.navigate(['/login'])
+          } else if(err.status === 403) {
+            this._router.navigate(['/login'])
+          }
+        }
+      }
+    ) 
   }
 }

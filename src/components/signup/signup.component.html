@@ -1,6 +1,7 @@
 <div class="signup-container">
   <h3>SignUp</h3>
   <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
+    <ngb-alert #errorAlert *ngIf="errMsg" type="danger" (closed)="errMsg = ''">{{ errMsg }}</ngb-alert>
 
     <div class="row">
       <div class="col">

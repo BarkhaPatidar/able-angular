@@ -45,7 +45,7 @@
                                 <span>Location</span>
                             </div>
                             <div class="basic-info-values">
-                                <span>{{user.location}}</span>
+                                <span>{{user.city}}</span>
                             </div>
                         </li>
                     </ul>
@@ -101,9 +101,9 @@
                                         <span>Location</span><span class="text-danger">*</span>
                                     </div>
                                     <div class="basic-info-values">
-                                        <input formControlName="location" class="form-control">
-                                        <div *ngIf="basicInfoForm.get('location')?.invalid && basicInfoForm.get('location')?.touched">
-                                            <small *ngIf="basicInfoForm.get('location')?.errors?.required" class="text-danger">Please enter location.</small>
+                                        <input formControlName="city" class="form-control">
+                                        <div *ngIf="basicInfoForm.get('city')?.invalid && basicInfoForm.get('city')?.touched">
+                                            <small *ngIf="basicInfoForm.get('city')?.errors?.required" class="text-danger">Please enter location.</small>
                                         </div>
                                     </div>
                                 </li> 

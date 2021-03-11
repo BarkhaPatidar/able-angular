@@ -17,7 +17,7 @@ export class LoginComponent implements OnInit {
 
   errMsg = "";
 
-  @ViewChild('successAlert', {static: false}) successAlert?: NgbAlert;
+  @ViewChild('errorAlert', {static: false}) errorAlert?: NgbAlert;
 
   constructor(private fb: FormBuilder, private _loginService: UserService, private _router: Router, private route: ActivatedRoute, private _dataService: DataService) {}
 
@@ -37,7 +37,7 @@ export class LoginComponent implements OnInit {
 
     setTimeout(() => {
       this.errMsg = "";
-      this.successAlert?.close();
+      this.errorAlert?.close();
     }, 5000); 
   }
 
@@ -52,16 +52,10 @@ export class LoginComponent implements OnInit {
     this._loginService.login(this.loginForm.value)
     .subscribe(
       response => {
-       
-          this.errMsg = "";
-          localStorage.setItem('token', response.accessToken)
-          this._dataService.requestDataFromMultipleSources().subscribe(responseList => {
-            localStorage.setItem("panelData", JSON.stringify(responseList[0]));
-            localStorage.setItem("timelineData", JSON.stringify(responseList[1]));
-            localStorage.setItem("userData", JSON.stringify(responseList[2]));
-          });
-          this._router.navigate(['/dashboard/timeline'])
-          
+        this.errMsg = "";
+        this._loginService.userInfo(response)
+        localStorage.setItem('token', response.accessToken)
+        this._router.navigate(['/dashboard/timeline'])  
       },
       error => {
         if(error instanceof HttpErrorResponse) {

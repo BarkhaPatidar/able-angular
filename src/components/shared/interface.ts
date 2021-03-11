@@ -10,3 +10,18 @@ export interface PostModal {
     share?: number,
     liked?: string
 }
+
+export interface UserModal {
+    email?: string,
+    password?: string,
+    name?: string,
+    profile?: string,
+    profession?: string,
+    gender?: string,
+    dob?: string,
+    maritalStatus?: string,
+    location?: string,
+    skills?: string,
+    jobs?: string,
+    followers?: string
+}

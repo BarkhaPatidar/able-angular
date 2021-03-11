@@ -1,7 +1,8 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import {NgbAlert} from '@ng-bootstrap/ng-bootstrap';
+import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from '../../services/user.service';
 import { passwordValidator } from '../shared/password.validator';
 
@@ -14,13 +15,14 @@ import { DataService } from '../../services/data.service';
 })
 export class SignupComponent implements OnInit {
   registrationForm!: FormGroup;
+  errMsg = "";
 
   get getAddress() {
     return this.registrationForm.get('address')
   }
 
 
-  constructor( private fb: FormBuilder, private _registrationService: UserService, private _router: Router, private _dataService: DataService) {}
+  constructor( private fb: FormBuilder, private _registrationService: UserService, private _router: Router, private _dataService: DataService, private route: ActivatedRoute) {}
 
   ngOnInit(): void {
 
@@ -29,6 +31,12 @@ export class SignupComponent implements OnInit {
     }
     
     this.initRegistrationForm();
+
+    this.route.queryParams.subscribe((params) => {
+      if(params.exist && params.exist == "true") {
+        this.errMsg = "User already exist, please try with different email."
+      }
+    });
     
   }
 
@@ -50,11 +58,8 @@ export class SignupComponent implements OnInit {
     this._registrationService.register(this.registrationForm.value)
     .subscribe(
       response => {
-        this._dataService.requestDataFromMultipleSources().subscribe(responseList => {
-          localStorage.setItem("panelData", responseList[0]);
-            localStorage.setItem("timelineData", responseList[1]);
-            localStorage.setItem("userData", responseList[2]);
-        });
+        this.errMsg = "";
+        this._registrationService.userInfo(response)
         localStorage.setItem('token', response.accessToken)
         this._router.navigate(['/dashboard/timeline'])
         
@@ -65,6 +70,8 @@ export class SignupComponent implements OnInit {
             this._router.navigate(['/signup'])
           } else if(error.status === 403) {
             this._router.navigate(['/signup'])
+          } else if(error.status === 409) {
+            this._router.navigate(['/signup'], { queryParams: { exist: "true" } });
           }
         }
       }

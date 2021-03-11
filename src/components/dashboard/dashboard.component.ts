@@ -9,19 +9,8 @@ import { UserService } from '../../services/user.service';
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
-
-  get user() {
-    return JSON.parse(this._dashboardService.getUserData()!)
-  }
-
-  get posts() {
-    return JSON.parse(this._dashboardService.getPostData()!)
-  }
-
-  get allFriends() {
-    return JSON.parse(this._dashboardService.getPanelData()!)
-  }
-
+  isDashMenuCollapsed = true;
+  user: any;
   allPosts = [];
   postCount = "";
   followingsCount = 0;
@@ -41,28 +30,38 @@ export class DashboardComponent implements OnInit {
   constructor(public _dashboardService: UserService, private _router: Router, private route: ActivatedRoute) {}
 
   ngOnInit(): void {
-    this.getUrlSegment()
-    this._dashboardService.dashboard()
+    this.userObservable();
+    this.postObservable();
+    this.friendObservable();
+    this.getUrlSegment(); 
+  }
+
+  userObservable() {
+    this._dashboardService.getUserData().subscribe(userdataData => {
+      this._dashboardService.userInfo(userdataData)
+      this.getUser();
+    })
+  }
+
+  postObservable() {
+    this._dashboardService.getPostData().subscribe(postData => {
+      this._dashboardService.postInfo(postData)
+      this.getPosts();
+    })
+  }
+
+  friendObservable() {
+    this._dashboardService.getPanelData().subscribe(friendsData => {
+      this._dashboardService.friendInfo(friendsData)
+      this.getAllFriends();
+    })
+  }
+
+  getUser() {
+    this._dashboardService.userData$
     .subscribe(
       res => {
-        this.allPosts = this.posts
-        this.postCount = this.posts.length;
-        for(var i = 0; i < this.allFriends.length; i++) {
-          var followUsers = this.allFriends[i];
-          if(this.allFriends[i].friendStatus == "Following") {
-            (this.followings).push(followUsers)
-            if(this.friends.length < 9) {
-              (this.friends).push(followUsers)
-            }
-          } else {
-            this.followingsCount += 1;
-            (this.unfollowings).push(followUsers)
-            if(this.suggetions.length < 4) {
-              (this.suggetions).push(followUsers)
-            }
-          }
-        }
-        
+        this.user = res.user;
       },
       err => {
         if(err instanceof HttpErrorResponse) {
@@ -74,7 +73,60 @@ export class DashboardComponent implements OnInit {
         }
       }
     )
-    
+  }
+
+  getPosts() {
+    this._dashboardService.postData$
+    .subscribe(
+      res => {
+        this.allPosts = res.posts
+        this.postCount = res.posts.length;
+      }, 
+      err => {
+        if(err instanceof HttpErrorResponse) {
+          if(err.status === 401) {
+            this._router.navigate(['/login'])
+          } else if(err.status === 403) {
+            this._router.navigate(['/login'])
+          }
+        }
+      }
+    ) 
+  }
+
+  getAllFriends() {
+    this._dashboardService.friendData$
+    .subscribe(
+      res => {
+        this.followingsCount = 0;
+        this.followings = [];
+        this.unfollowings = [];
+        for(var i = 0; i < res.friends.length; i++) {
+          var followUsers = res.friends[i];
+          if(res.friends[i].friendStatus == "Following") {
+            this.followingsCount += 1;
+            (this.followings).push(followUsers)
+            if(this.friends.length < 9) {
+              (this.friends).push(followUsers)
+            }
+          } else {
+            (this.unfollowings).push(followUsers)
+            if(this.suggetions.length < 4) {
+              (this.suggetions).push(followUsers)
+            }
+          }
+        }
+      }, 
+      err => {
+        if(err instanceof HttpErrorResponse) {
+          if(err.status === 401) {
+            this._router.navigate(['/login'])
+          } else if(err.status === 403) {
+            this._router.navigate(['/login'])
+          }
+        }
+      }
+    ) 
   }
 
   checkActiveLink(value: any): void {
@@ -145,6 +197,7 @@ export class DashboardComponent implements OnInit {
   isActive(query: string): void {
     this.isTimeline = this.isAbout = this.isPhotos = this.isFriends = false;
     this.checkActiveLink(query)
+    this.isDashMenuCollapsed = true;
     this._router.navigate([`/dashboard/${query}`])
   }
   
