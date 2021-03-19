@@ -7,7 +7,7 @@ import { NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 import { AddPostModal } from './add-post.component';
 import { UserService } from '../../services/user.service';
 import { By } from '@angular/platform-browser';
-import { Observable, of } from 'rxjs';
+import { BehaviorSubject, Observable, of } from 'rxjs';
 
 const mockUserData = {
     accessToken: "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImJhcmtoYUBuZXdwdXQuY29tIiwicGFzc3dvcmQiOiIxMjM0NTYiLCJpYXQiOjE2MTU1NDk0NjksImV4cCI6MTYxNTU5MjY2OX0.FYxRW96LnK_1jDZW9wKQPKbusUMLOIsKyo9WwNjsx_y3j2GEruUVJwdrcO63ZBWag56qsn9ci71S4JNpRJjuow",
@@ -32,13 +32,44 @@ const mockUserData = {
     }
 }
 
+const mockPostData = [
+    {
+        "postId" : 1,
+        "user" : "Hermione Granger",
+        "userProfile" : "profile-girl.png",
+        "pic" : "https://images.pexels.com/photos/36717/amazing-animal-beautiful-beautifull.jpg?auto=compress&cs=tinysrgb&dpr=1&w=500",
+        "caption" : "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley",
+        "time" : "2021-01-20 22:14:23",
+        "likes" : 40,
+        "comments" : 20,
+        "share" : 4,
+        "liked" : ""
+    }
+]
+
 describe('AddPostModal', () => {
     let addPostModal: AddPostModal;
     let fixture: ComponentFixture<AddPostModal>;
-    let userService: UserService;
-    let userData = mockUserData;
-    let userServiceStub: UserService;
-    
+    let userService: Partial<UserService>;
+    let mockResponse = mockUserData;
+    let mockPostResponse = mockPostData;
+    let response = new BehaviorSubject<any>(mockUserData);
+    let postResponse = new BehaviorSubject<any>(mockPostData);
+
+    userService = {
+        userData$ : response.asObservable(),
+        postData$ : postResponse.asObservable(),
+        getUserData: function() {
+            return of(mockResponse);
+        },
+        addPost: function(post) {
+            return of(mockPostResponse);
+        },
+        postInfo: function(newPost: any) {
+            response.next(newPost);
+        }
+    }
+
     beforeEach(async () => {
         await TestBed.configureTestingModule({
             imports: [
@@ -52,7 +83,7 @@ describe('AddPostModal', () => {
             providers: [
                 UserService,
                 NgbActiveModal,
-                {provide: UserService, useValue: userServiceStub}
+                {provide: UserService, useValue: userService}
             ]
         }).compileComponents();
     });
@@ -64,23 +95,73 @@ describe('AddPostModal', () => {
         fixture.detectChanges();
     })
 
-    it('should create the add-post component', fakeAsync(() => {
+    it('should create the add-post component', () => {
         expect(addPostModal).toBeTruthy();
-    }));
+        addPostModal.user = mockResponse;
+    });
 
-    // userServiceStub = {
-        
-    // }
+    it('should call ngOnInit in add-post', () => {
+        let userDataSpy = spyOn(addPostModal, 'getUser');
+        let postDataSpy = spyOn(addPostModal, 'getPosts');
+        let saveFormSpy = spyOn(addPostModal, 'initSavePostForm');
 
-    it('get user data in add-post', fakeAsync(() => {
-        let userDataSpy = spyOn(userService, 'getUserData').and.returnValue(of(mockUserData));
-        let subSpy = spyOn(userService.userData$, 'subscribe');
+        addPostModal.ngOnInit();
+
+        expect(userDataSpy).toHaveBeenCalled();
+        expect(postDataSpy).toHaveBeenCalled();
+        expect(saveFormSpy).toHaveBeenCalled();
         // addPostModal.ngOnInit();
         // fixture.detectChanges();
-        tick();
-        expect(userDataSpy).toHaveBeenCalledBefore(subSpy);
-        expect(subSpy).toHaveBeenCalled();
-    }));
+        // tick();
+        // expect(userDataSpy).toHaveBeenCalledBefore(subSpy);
+        // expect(subSpy).toHaveBeenCalled();
+    });
+
+    it('check imageURL validation', async () => {
+        let imageURL = addPostModal.addPostForm.controls['imageURL'];
+        expect(imageURL.valid).toBeFalsy();
+        expect(imageURL.pristine).toBeTruthy();
+        expect(imageURL.errors!['required']).toBeTruthy();
+        imageURL.setValue('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQRTOka7yiD9kwnZGsEZR6-w40z2R9obqb8-g&usqp=CAU');
+    
+        // expect(imageURL.errors!['imageURL']).toBeTruthy();
+    });
+
+    it('check caption validation', async () => {
+        let caption = addPostModal.addPostForm.controls['caption'];
+        expect(caption.valid).toBeFalsy();
+        expect(caption.pristine).toBeTruthy();
+        expect(caption.errors!['required']).toBeTruthy();
+        caption.setValue('Lorem Ipsum....!');
+    
+        // expect(caption.errors!['caption']).toBeTruthy();
+    });
+
+    it('addPostForm values not entered', () => {
+        expect(addPostModal.addPostForm.valid).toBeFalsy();
+    });
+
+    it('check addPostForm when values entered', () => {
+        addPostModal.addPostForm.controls['imageURL'].setValue('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQRTOka7yiD9kwnZGsEZR6-w40z2R9obqb8-g&usqp=CAU');
+        addPostModal.addPostForm.controls['caption'].setValue('Lorem Ipsum....!');
+        expect(addPostModal.addPostForm.valid).toBeTruthy();
+    });
+
+    it('submit addPostForm', () => {
+        expect(addPostModal.addPostForm.invalid).toBeTruthy();
+        const btn = fixture.nativeElement.querySelector('button[type=submit]');
+        // btn = fixture.debugElement.query(By.css('button[type=submit]'));
+        expect(btn.disabled).toBeTruthy();
+    
+        addPostModal.addPostForm.controls['imageURL'].setValue('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQRTOka7yiD9kwnZGsEZR6-w40z2R9obqb8-g&usqp=CAU');
+        addPostModal.addPostForm.controls['caption'].setValue('Lorem Ipsum....!');
+        fixture.detectChanges();
+    
+        expect(btn.disabled).toBeFalsy();
+        btn.click();
+        addPostModal.savePost();
+        fixture.detectChanges();
+    });
 
     // it('user data subscribe execution within add post', fakeAsync(() => {
     //     addPostModal.ngOnInit();
