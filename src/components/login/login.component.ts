@@ -52,6 +52,7 @@ export class LoginComponent implements OnInit {
     this._loginService.login(this.loginForm.value)
     .subscribe(
       response => {
+        console.log(response);
         this.errMsg = "";
         this._loginService.userInfo(response)
         localStorage.setItem('token', response.accessToken)
