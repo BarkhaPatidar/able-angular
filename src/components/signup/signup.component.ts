@@ -61,7 +61,8 @@ export class SignupComponent implements OnInit {
         this.errMsg = "";
         this._registrationService.userInfo(response)
         localStorage.setItem('token', response.accessToken)
-        this._router.navigate(['/dashboard/timeline'])
+        // this._router.navigate(['/dashboard/timeline'])
+        location.reload();
         
       },
       error => {

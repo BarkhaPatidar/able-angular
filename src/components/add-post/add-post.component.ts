@@ -76,7 +76,7 @@ export class AddPostModal implements OnInit {
   }
 
   savePost() {
-    
+    console.log("---------------- ", this.user);
     var formValues = this.addPostForm.value;
     var newPost = {
       "user" : this.user.name,

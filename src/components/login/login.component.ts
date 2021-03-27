@@ -56,7 +56,8 @@ export class LoginComponent implements OnInit {
         this.errMsg = "";
         this._loginService.userInfo(response)
         localStorage.setItem('token', response.accessToken)
-        this._router.navigate(['/dashboard/timeline'])  
+        // this._router.navigate(['/dashboard/timeline'])  
+        location.reload();
       },
       error => {
         if(error instanceof HttpErrorResponse) {

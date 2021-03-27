@@ -184,7 +184,8 @@
                         }
     
                         &:hover {
-                            background-color: $hover-bg;
+                            border-radius: 0;
+                            border-bottom: 5px solid $navbar-bg;
                         }
                     }
     

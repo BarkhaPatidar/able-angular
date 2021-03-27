@@ -97,7 +97,6 @@ describe('AddPostModal', () => {
 
     it('should create the add-post component', () => {
         expect(addPostModal).toBeTruthy();
-        addPostModal.user = mockResponse;
     });
 
     it('should call ngOnInit in add-post', () => {
@@ -110,6 +109,8 @@ describe('AddPostModal', () => {
         expect(userDataSpy).toHaveBeenCalled();
         expect(postDataSpy).toHaveBeenCalled();
         expect(saveFormSpy).toHaveBeenCalled();
+
+        addPostModal.user = mockResponse.user;
         // addPostModal.ngOnInit();
         // fixture.detectChanges();
         // tick();
@@ -158,7 +159,7 @@ describe('AddPostModal', () => {
         fixture.detectChanges();
     
         expect(btn.disabled).toBeFalsy();
-        btn.click();
+        // btn.click();
         addPostModal.savePost();
         fixture.detectChanges();
     });
