@@ -1,0 +1,31 @@
+@import '../shared/colors.scss';
+
+.signup-container {
+    background-color: $white-clr;
+    box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.2);
+    margin: 0 auto;
+    margin-top: 90px;
+    padding: 20px;
+    position: relative;
+    width: 45%;
+
+    h3 {
+        color: $navbar-bg;
+        text-align: center;
+    }
+
+    .login-link {
+        font-size: small;
+    }
+
+    .submit-btn {
+        margin-top: 10px;
+        text-align: center;
+    }
+}
+
+@media only screen and (max-width: 767px) { 
+    .signup-container {
+        width: 100%;
+    }
+}

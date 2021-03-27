@@ -1,0 +1,29 @@
+<nav class="navbar fixed-top navbar-expand-lg navbar-light menu-bar">
+    <div class="container">
+        <a class="navbar-brand navbar-title" href="#">Able</a>
+        <button *ngIf="loggedIn" class="navbar-toggler" type="button" (click)="isMenuCollapsed = !isMenuCollapsed">
+        <span class="navbar-toggler-icon"></span>
+        </button>
+  
+        <div *ngIf="loggedIn" [ngbCollapse]="isMenuCollapsed" class="collapse navbar-collapse " id="burgerMenu">
+            <div class="ml-auto">
+                <a href="" class="navbar-menu-items "><i class="fa fa-search" aria-hidden="true"></i></a>
+                <a href="" class="navbar-menu-items "><i class="fa fa-bell-o  icon-badge" aria-hidden="true"><span class="badge badge-danger">1</span></i></a>
+                <a href="" class="navbar-menu-items "><i class="fa fa-comments-o icon-badge" aria-hidden="true"><span class="badge badge-pill badge-danger">2</span></i></a>
+                <a href="" class="navbar-menu-items "><i class="fa fa-arrows-alt" aria-hidden="true"></i></a>
+                <div class="navbar-menu-items menu-items-img">
+                    <img src="assets/img/{{user?.profile}}" alt="profile">
+                </div>
+                <div ngbDropdown class="d-inline-block navbar-menu-dropdown">
+                    <button class="btn btn-outline-primary" id="logoutdropdown" ngbDropdownToggle>{{user?.name}}</button>
+                    <div ngbDropdownMenu aria-labelledby="logoutdropdown">
+                    <a ngbDropdownItem class="logout-link" (click)="logout()" id="logout-btn">Logout</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+<div class="form-container">
+    <router-outlet></router-outlet>
+</div>

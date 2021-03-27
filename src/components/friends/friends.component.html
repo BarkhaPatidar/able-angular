@@ -1,0 +1,15 @@
+<div class="timeline-posts-wrap clearfix" >
+    <div class="frnd-request-wrap clearfix">
+        <div class="frnd-request-container">
+            <div *ngFor="let friend of friends" class="friend-tab clearfix">
+                <span><i class="fa fa-ellipsis-v" aria-hidden="true"></i></span>
+                <img src="assets/img/{{friend.profile}}">
+                <div class="friend-content clearfix">
+                    <p>{{friend.name}}</p>
+                    <p>{{friend.profession}} at {{friend.jobs}}</p>
+                    <input type="button" (click)="changeFollowStatus(friend.friendId)" value="{{checkStatus(friend.friendStatus)}}" class="btn btn-default unfollow-frnd">
+                </div>
+            </div>
+        </div>
+    </div>
+</div> 

@@ -1,0 +1,61 @@
+@import '../shared/colors.scss';
+
+.modal-title {
+    color: $modal-text;
+    text-align: center;
+}
+
+.close {
+    color: $navbar-bg;
+    opacity: 0.8;
+
+    &:focus:focus-visible {
+        outline: none;
+    }
+}
+
+// .modal-heading-wrap {
+//     text-align: center;
+// }
+
+// .close-btn-wrap {
+//     width: 10%;
+// }
+
+.new-post-form {
+    padding: 40px;
+
+    label {
+        color: $modal-text;
+    }
+}
+
+.save-post {
+    text-align: center;
+
+    button {
+        background-color: $navbar-bg;
+        border: none;
+        color: $white-clr;
+
+        &:hover {
+            color: $white-clr;
+            outline: none;
+        }
+        &:focus {
+            border: none;
+            box-shadow: none;
+        }
+
+        &:active {
+            background-color: $navbar-bg;
+            border: none;
+            color: $white-clr;
+        }
+
+        &:active:focus {
+            box-shadow: none;
+            outline: none;
+        }
+    }
+}

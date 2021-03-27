@@ -1,0 +1,197 @@
+<div class="timeline-posts-wrap clearfix" >
+    <div class="profile-about-wrap">
+        <div class="profile-about-container">
+            <div class="basic-information">
+                <div class="about-header">
+                    <span>BASIC INFORMATION</span>
+                    <a class="edit-icon-wrap" (click)="editBasicInfo()"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                </div>
+                <div class="basic-info-content clearfix">
+                    <ul *ngIf="!basicInfoEdit" class="basic-info-label-values basic-info">
+                        <li>
+                            <div class="basic-info-label">
+                                <span>Full Name</span>
+                            </div>
+                            <div class="basic-info-values">
+                                <span>{{user.name}}</span>
+                            </div>  
+                        </li>
+                        <li>
+                            <div class="basic-info-label">
+                                <span>Gender</span>
+                            </div>
+                            <div class="basic-info-values">
+                                <span>{{user.gender}}</span>
+                            </div>  
+                        </li>
+                        <li>
+                            <div class="basic-info-label">
+                                <span>Birth Date</span>
+                            </div>
+                            <div class="basic-info-values">
+                                <span>{{user.dob}}</span>
+                            </div> 
+                        </li>
+                        <li>
+                            <div class="basic-info-label">
+                                <span>Marital Status</span>
+                            </div>
+                            <div class="basic-info-values">
+                                <span>{{user.maritalStatus}}</span>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="basic-info-label">
+                                <span>Location</span>
+                            </div>
+                            <div class="basic-info-values">
+                                <span>{{user.city}}</span>
+                            </div>
+                        </li>
+                    </ul>
+                    <div *ngIf="basicInfoEdit">
+                        <form [formGroup]="basicInfoForm" (ngSubmit)="updateBasicInfo()" class="basic-info-form">
+                            <ul class="basic-info-label-values basic-info-inputs">
+                                <li>
+                                    <div class="basic-info-label">
+                                        <span>Full Name</span><span class="text-danger">*</span>
+                                    </div>
+                                    <div class="basic-info-values">
+                                        <input formControlName="name" class="form-control">
+                                        <div *ngIf="basicInfoForm.get('name')?.invalid && basicInfoForm.get('name')?.touched">
+                                            <small *ngIf="basicInfoForm.get('name')?.errors?.required" class="text-danger">Please enter full name.</small>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="basic-info-label">
+                                        <span>Gender</span><span class="text-danger">*</span>
+                                    </div>
+                                    <div class="basic-info-values">
+                                        <input formControlName="gender" class="form-control">
+                                        <div *ngIf="basicInfoForm.get('gender')?.invalid && basicInfoForm.get('gender')?.touched">
+                                            <small *ngIf="basicInfoForm.get('gender')?.errors?.required" class="text-danger">Please enter gender.</small>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="basic-info-label">
+                                        <span>Birth Date</span><span class="text-danger">*</span>
+                                    </div>
+                                    <div class="basic-info-values">
+                                        <input formControlName="dob" class="form-control">
+                                        <div *ngIf="basicInfoForm.get('dob')?.invalid && basicInfoForm.get('dob')?.touched">
+                                            <small *ngIf="basicInfoForm.get('dob')?.errors?.required" class="text-danger">Please enter date of birth.</small>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="basic-info-label">
+                                        <span>Marital Status</span><span class="text-danger">*</span>
+                                    </div>
+                                    <div class="basic-info-values">
+                                        <input formControlName="maritalStatus" class="form-control">
+                                        <div *ngIf="basicInfoForm.get('maritalStatus')?.invalid && basicInfoForm.get('maritalStatus')?.touched">
+                                            <small *ngIf="basicInfoForm.get('maritalStatus')?.errors?.required" class="text-danger">Please enter marital status.</small>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="basic-info-label">
+                                        <span>Location</span><span class="text-danger">*</span>
+                                    </div>
+                                    <div class="basic-info-values">
+                                        <input formControlName="city" class="form-control">
+                                        <div *ngIf="basicInfoForm.get('city')?.invalid && basicInfoForm.get('city')?.touched">
+                                            <small *ngIf="basicInfoForm.get('city')?.errors?.required" class="text-danger">Please enter location.</small>
+                                        </div>
+                                    </div>
+                                </li> 
+                            </ul>
+                            <div id="basic-info-sub-wrap" class="basic-info-sub-wrap">
+                                <button [disabled]="!basicInfoForm.valid" type="submit" class="btn btn-primary">Save</button>
+                            </div>
+                        </form>    
+                    </div>    
+                </div>
+            </div>
+            <div class="line-between-about"></div>
+            <div class="basic-information">
+                <div class="about-header">
+                    <span>WORK</span>
+                    <a (click)="editWorkInfo()"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                </div>
+                <div class="basic-info-content clearfix">
+                    <ul *ngIf="!workInfoEdit" class="basic-info-label-values work-info">
+                        <li>
+                            <div class="basic-info-label">
+                                <span>Profession</span>
+                            </div>
+                            <div class="basic-info-values">
+                                <span>{{user.profession}}</span>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="basic-info-label">
+                                <span>Skills</span>
+                            </div>
+                            <div class="basic-info-values">
+                                <span>{{user.skills}}</span>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="basic-info-label">
+                                <span>Jobs</span>
+                            </div>
+                            <div class="basic-info-values">
+                                <span>{{user.jobs}}</span>
+                            </div>
+                        </li>
+                    </ul>
+                    <div *ngIf="workInfoEdit">
+                        <form [formGroup]="workInfoForm" (ngSubmit)="updateWorkInfo()" class="basic-info-form">
+                            <ul class="basic-info-label-values work-info-inputs">
+                                <li>
+                                    <div class="basic-info-label">
+                                        <span>Profession</span><span class="text-danger">*</span>
+                                    </div>
+                                    <div class="basic-info-values">
+                                        <input formControlName="profession" class="form-control">
+                                        <div *ngIf="workInfoForm.get('profession')?.invalid && workInfoForm.get('profession')?.touched">
+                                            <small *ngIf="workInfoForm.get('profession')?.errors?.required" class="text-danger">Please enter profession.</small>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="basic-info-label">
+                                        <span>Skills</span><span class="text-danger">*</span>
+                                    </div>
+                                    <div class="basic-info-values">
+                                        <input formControlName="skills" class="form-control">
+                                        <div *ngIf="workInfoForm.get('skills')?.invalid && workInfoForm.get('skills')?.touched">
+                                            <small *ngIf="workInfoForm.get('skills')?.errors?.required" class="text-danger">Please enter skills.</small>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="basic-info-label">
+                                        <span>Jobs</span><span class="text-danger">*</span>
+                                    </div>
+                                    <div class="basic-info-values">
+                                        <input formControlName="jobs" class="form-control">
+                                        <div *ngIf="workInfoForm.get('jobs')?.invalid && workInfoForm.get('jobs')?.touched">
+                                            <small *ngIf="workInfoForm.get('jobs')?.errors?.required" class="text-danger">Please enter jobs.</small>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                            <div id="work-info-sub-wrap" class="basic-info-sub-wrap">
+                                <button [disabled]="!workInfoForm.valid" type="submit" class="btn btn-primary">Save</button>
+                            </div>
+                        </form>    
+                    </div>    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>  

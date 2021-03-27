@@ -1,0 +1,82 @@
+<div class="main-container" id="main-container"> 
+    <div class=" container-fluid profile-container">
+        <h2 class="timeline-heading">Profile Social</h2>
+        <ol class="profile-breadcrumb">
+            <li><a href="javascript:void(0)"><i class="fa fa-home" aria-hidden="true"></i></a></li>
+            <li>&gt;&gt;</li>
+            <li class=""><a href="javascript:void(0)">Extras</a></li>
+            <li>&gt;&gt;</li>
+            <li class="active">Profile Social</li>
+        </ol>
+        <div id="banner" class="banner">
+            <img class="banner-img" src="assets/img/hero-img.jpg">
+            <div class="friend-user-data">
+                <div class="profile-data-container clearfix">
+                    <img class="profile-pic" src="assets/img/profile-girl.png">
+                    <div class="profile-text">
+                        <span>{{user?.name}}</span>
+                        <h6>{{user?.profession}}</h6>
+                    </div>
+                    
+                    <div class="user-statistics">
+                        <p><span>{{followingsCount}}</span> Followings</p>
+                        <p><span>{{convertNumber(user?.followers)}}</span> Followers</p>
+                        <p><span>{{postCount}}</span> Activities</p>
+                    </div> 
+                </div>
+                <div id="user-profile-friends">
+                    <div class="profile-data-container clearfix">
+                        <div class="who-to-follow-text">
+                            <span>WHO TO FOLLOW</span>
+                            <a *ngIf="isSeeMoreSuggestions" (click)="seeMoreSuggestions()" class="badge badge-primary">See 5 more</a>
+                            <a *ngIf="!isSeeMoreSuggestions" (click)="seeLessSuggestions()" class="badge badge-primary">See less</a>
+                        </div>
+                        <div class="suggestion-wrap">
+                            <ul class="follow-suggestions" [class.add-scroll]="showSuggetionScroll">
+                                <li *ngFor="let suggetion of suggetions" class="clearfix">
+                                    <div class="profile-status">
+                                        <img src="assets/img/{{suggetion.profile}}">
+                                        <span class="online {{suggetion.status}}"><i class="fa fa-circle" aria-hidden="true"></i></span>
+                                    </div>
+                                    <div class="profile-name clearfix">
+                                        <p class="name">{{suggetion.name}}</p>
+                                        <p class="profession">{{suggetion.profession}}</p>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="profile-data-container clearfix">
+                        <div class="who-to-follow-text">
+                            <span>FRIENDS</span>
+                            <a *ngIf="isSeeMoreFriends" (click)="seeMoreFriends()" class="badge badge-primary">See 10 more</a>
+                            <a *ngIf="!isSeeMoreFriends" (click)="seeLessFriends()" class="badge badge-primary">See less</a>
+                        </div>
+                        <div class="only-frnds-wrap" [class.add-scroll]="showFriendsScroll">
+                           
+                            <img *ngFor="let friendProfile of friends" class="friend-dp" ngbPopover="{{friendProfile.name}}" popoverClass="friend-dp-popover" triggers="mouseenter:mouseleave" src="assets/img/{{friendProfile.profile}}">
+                            
+                        </div>
+                    </div>
+                </div>    
+            </div>
+        </div>
+        <div class="timeline-container clearfix">
+            <nav class="navbar navbar-expand-lg navbar-light timeline-navbar">
+                <button class="navbar-toggler " (click)="isDashMenuCollapsed = !isDashMenuCollapsed">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <ul [ngbCollapse]="isDashMenuCollapsed" class="collapse navbar-collapse nav nav-pills nav-justified timeline-bar" id="timeline-menu-bar">
+                    <li class="nav-item" (click)="isActive('timeline')" [class.active]="isTimeline"  >Timeline</li>
+                    <li class="nav-item" (click)="isActive('about')" [class.active]="isAbout">About</li>
+                    <li class="nav-item" (click)="isActive('photos')" [class.active]="isPhotos">Photos</li>
+                    <li class="nav-item" (click)="isActive('friends')" [class.active]="isFriends">Friends</li>
+                </ul>
+            </nav>
+            <div id="timeline-wrap">
+                <router-outlet></router-outlet>
+            </div>
+        </div>
+    </div>
+</div>

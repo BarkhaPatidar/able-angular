@@ -1,0 +1,161 @@
+@import '../shared/colors.scss';
+
+.add-post-wrap {
+    background-color: $body-bg;
+
+    .add-post {
+        background-color: $body-bg;
+        margin-top: 20px;
+        text-align: right;
+
+        a {
+            background-color: $navbar-bg;
+            color: $white-clr;
+            font-size: 20px;
+        }
+    }
+}
+
+.timeline-posts {
+    background-color: $body-bg;
+    padding: 25px 0;
+    position: relative;
+
+    .timeline-post-tabs {
+        display: flex;
+
+        .timeline-image-icon {
+            padding: 1em 2em;
+            
+            .timeline-image-wrap {
+                font-size: 0.8em;
+                position: relative;
+        
+                &::after {
+                    border-bottom: 3px solid $border-grey;
+                    content: '';
+                    height: 0;
+                    left: 2.5em;
+                    position: absolute;
+                    top: 1.75em;
+                    width: 100%;
+                    z-index: 0;
+                }
+            }
+            
+            img {
+                border: 0.35em solid #f4f8f7;
+                border-radius: 50%;
+                height: 35px;
+                position: relative;
+                z-index: 10;
+            }
+        }
+
+        .post-container {
+            background-color: $white-clr;
+            border-radius: 4px;
+            float: right;
+            margin-bottom: 30px;
+            position: relative;
+            width: 90%;
+            z-index: 1;
+
+            .post-timeline-wrap {
+
+                .post-header {
+                    padding: 15px;
+                    z-index: 1;
+
+                    span {
+                        font-size: 15px;
+                        font-weight: $font-weight-five;
+                    }
+
+                    p {
+                        color: $grey-color;
+                        font-size: 12px;
+                        font-weight: $font-weight-four;
+                    }
+
+                    i {
+                        color: $grey-color;
+                        float: right;
+                        padding-top: 4px;
+                    }
+
+                    .post-content {
+                        padding: 10px 0 0 0;
+                        margin: 0;
+                    }
+                }
+
+                .post-photo {
+                    z-index: 1;
+                    img {
+                        width: 100%;
+                    }
+                }
+
+                .post-footer {
+                    border-top: 1px solid $grey-color;
+                    padding: 20px 20px 20px 10px;
+                    z-index: 1;
+
+                    .like-com-sh {
+                        border-right: 1px solid;
+                        color: $grey-color;
+                        font-size: 12px;
+                        font-weight: $font-weight-four;
+                        padding: 0 10px;
+
+                        &:last-child {
+                            border: none;
+                        }
+
+                        &.like i {
+                            cursor: pointer;
+                        }
+
+                        .liked {
+                            color: $red-color;
+                        }
+
+                        .post-id {
+                            display: none;
+                        }
+                    }
+                }
+
+                &::before {
+                    border-left: 3px solid $border-grey;
+                    content: '';
+                    height: 105%;
+                    left: -3.35em;
+                    position: absolute;
+                    top: 0;
+                    width: 0;
+                    z-index: -1;
+                }
+            }    
+        }
+    }
+}
+
+@media only screen and (max-width: 767px) { 
+    .add-post-wrap {
+        .add-post {
+            margin-top: 0;
+        }
+    }
+    .timeline-posts {
+        .timeline-post-tabs {
+            .timeline-image-icon {
+                display: none;
+            }
+            .post-container {
+                width: 100%;
+            }
+        }
+    }
+}

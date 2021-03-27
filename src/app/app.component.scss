@@ -1,0 +1,85 @@
+@import '../components/shared/colors.scss';
+
+body {
+    background-color: $body-bg;
+}
+
+.menu-bar {
+    background-color: $navbar-bg;
+    box-shadow: 0 2px 5px 0 $box-shadow;
+    padding: 2px 0;
+    .navbar-title {
+        color: $white-clr;
+        font-size: 25px;
+        font-weight: 500;
+    }
+    .navbar-menu-items {
+        color: $white-clr;
+        font-size: 20px;
+        padding-left: 30px;
+
+        .icon-badge {
+            position: relative;
+
+            span {
+                background-color: $notification-red;
+                font-size: 11px;
+                font-weight: bolder;
+                left: 10px;
+                position: absolute;
+                top: -10px;
+            }
+        }
+    }
+
+    .menu-items-img {
+        display: inline-block;
+        height: 40px;
+        img {
+            border-radius: 50%;
+            height: inherit;
+        }
+    }
+    
+    a {
+        color: $white-clr;
+    }
+
+    .navbar-menu-dropdown {
+
+        button {
+            background-color: inherit;
+            border: none;
+            color: $white-clr;
+
+            &:focus {
+                box-shadow: none;
+            }
+        }
+
+        .logout-link {
+            color: $navbar-bg;
+            cursor: pointer;
+            font-weight: $font-weight-six;
+            text-decoration: none;  
+
+            &:focus, &:hover, &:active {
+                background-color: $white-clr;
+                border: none;
+                outline: none;
+            }
+        }
+    }  
+}
+
+.form-container {
+    padding-top: 60px;
+}
+
+@media only screen and (max-width: 767px) { 
+    .menu-bar {
+        .container {
+            padding-left: 10px;
+        }
+    }
+}

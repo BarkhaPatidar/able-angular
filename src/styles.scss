@@ -1,0 +1,19 @@
+/* You can add global styles to this file, and also import other style files */
+
+/* Importing Bootstrap SCSS file. */
+@import '~bootstrap/scss/bootstrap';
+
+$body-bg : #E5E5E5;
+
+.body-bg {
+    background-color: $body-bg;
+}
+
+.timeline-posts-wrap {
+    background-color: $body-bg;
+}
+
+// .friend-dp-popover {
+//     background-color: #423f3f;
+//     color:#ffffff;
+// }

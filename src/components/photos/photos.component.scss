@@ -1,0 +1,38 @@
+@import '../shared/colors.scss';
+.timeline-posts-wrap {
+    .timeline-gallery-wrap {
+        .timeline-gallery-container {
+            background-color: $white-clr;
+            border-radius: 5px;
+            margin: 25px 0;
+            padding: 20px;
+    
+            .timeline-gallery {
+                img {
+                    border-radius: 5px;
+                    height: 125px;
+                    margin: 0 2px 5px 0;
+                    width: 24%;
+                }
+            }
+        }
+    }
+}
+
+
+@media only screen and (max-width: 767px) {
+    .timeline-posts-wrap {
+        margin-top: 50px;
+        .timeline-gallery-wrap {
+            .timeline-gallery-container {
+                .timeline-gallery {
+                    text-align: center;
+                    img {
+                        height: auto;
+                        width: 100%;
+                    }
+                }
+            }
+        } 
+    } 
+}
